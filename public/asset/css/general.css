@@ -1,0 +1,110 @@
+  
+  /* ------------------------ STILE DEI TITOLI */
+  h3, h4 {
+      letter-spacing: 10px;      
+      font-size: 20px;
+      color: #111;
+  }
+  
+  /* ------------------------ STILE DEI CONTAINER */
+  .container {
+      padding: 80px 120px;
+  }    
+   
+  /* ------------------------ NAVBAR */
+  .navbar {	 
+      font-family: Montserrat;
+      margin-bottom: 0;
+      background-color:white;
+      border: 0;
+      font-size: 11px ;
+      letter-spacing: 4px;
+      opacity: 0.9;
+	    padding: 0.6% 0;
+  }
+
+  .navbar-default .navbar-nav>li>a{ 
+      color: #d5d5d5 ;
+  }
+  .navbar-default .navbar-nav>li>a:hover {
+      color: #fff ;
+      background-color: #555;
+  }
+
+  /* COLORE TITOLO */
+  .navbar-default .navbar-brand {
+	  color: #EA57CB;
+	  @font-face: Blacksword;
+	  text-transform: ;
+	  font-size: 40px;
+  }
+  
+  .navbar-default .navbar-brand span {
+	  color: #951B81;
+	  font-family: Blacksword;
+	  text-transform: ;
+	  font-size: 40px;
+  }
+
+	/* ------------------------ CAROUSEL */
+  .carousel-inner img {
+      /* -webkit-filter: grayscale(90%);
+      filter: grayscale(90%);  */
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+  }
+
+  .carousel-caption h3 {
+      color: #fff ;
+  }
+  /* ------------------------ SOGNI */
+  .bg-1 {
+      background: #F7F9F8;
+      color: #bdbdbd;
+  }
+  .bg-1 h3 {color: #2CC9CA;}
+  .bg-1 p {font-style: italic;}
+
+  .thumbnail {
+      padding: 15px 15px;
+      border: none;
+      border-radius: 0;
+  }
+  .thumbnail p {
+      margin-top: 15px;
+      color: #555;
+  }
+  
+   .crop{
+	  height: 200px;
+	  width: auto;
+	  overflow: hidden;	  
+  }
+  
+
+  .crop img{
+	  height: 200px;
+	  width: auto;
+  }
+
+
+
+
+  
+  /* ------------------------ BOTTONI*/
+ .btn1 {
+      padding: 10px 20px;
+      background-color: #25A09D;
+      color: #f1f1f1;
+      
+      border-radius: 20px 20px 20px 20px;
+      box-shadow:0px;
+      border: none;
+
+  }
+  .btn1:hover, .btn1:focus {
+      border: 1px solid #25A09D;
+      background-color: #25A09D;
+      color: #000;
+
+  }

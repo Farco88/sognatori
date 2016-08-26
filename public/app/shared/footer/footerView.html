@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+
+	<style type="text/css">
+		form.submitted .ng-invalid
+		{
+		    border:1px solid #f00;
+		}    	
+	</style>
+		
+	</head>
+	<body>
+
+
+	    <!-- MODAL ARTICOLO -->
+	    <div class="modal fade" id="articolo-modal">
+	      <div class="modal-dialog" role="document">
+	        <div class="modal-content">   
+	          <div class="modal-header"> 
+	            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	              <span aria-hidden="true">&times;</span>
+	            </button>          
+	            <h3>{{azioneArticolo}}</h3>
+	          </div>          
+	          <div class="modal-body">
+	            Inserire Titolo: <br>
+	            <input type="text" name="title" ng-model="title" placeholder="title"> <br><br>
+	            Inserire testo articolo: <br>
+	            <trix-editor class="trix-content" ng-model="article" angular-trix placeholder="Write something.."></trix-editor>
+	            <!-- <textarea name="article" id="article" ng-model="article" cols="60" rows="10" placeholder="text article"></textarea> <br> -->
+	            <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+	                    accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+	                Inserire Immagine</button> <br>
+	            File: {{f.name}}
+	            <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+	                <span class="progress" ng-show="f.progress >= 0">
+	                    <div style="width:{{f.progress}}%"  
+	                         ng-bind="f.progress + '%'"></div>
+	                </span>
+	            </div>     
+	            {{errorMsg}} <br> <br>
+	            Selezionare Genere: <br>
+	            <select ng-init="genre = generi[0]" ng-options="genere.sottocategoria group by genere.categoria for genere in generi" ng-model="genre"></select>
+	          </div>
+	          <div class="modal-footer">
+	            <input type="submit" ng-click="salvaArticolo()" value="Salva" >
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+
+	    <!-- CONFERMA RIMOZIONE ARTICOLO -->
+	    <div class="modal fade" id="confermaRimozione-modal">
+	      <div class="modal-dialog" role="document">
+	        <div class="modal-content">  
+	          <div class="modal-header">
+	            <h6>Conferma Rimozione</h6>
+	          </div>
+	          <div class="modal-body">
+	            <p>Sei sicuro di voler cancellare questo articolo?</p>
+	          </div>
+	          <div class="modal-footer">
+	            <button ng-click="removeArticolo()" class="btn btn-default pull-left">Conferma</button>
+	            <button ng-click="annullaRimozione()"class="btn btn-default pull-left">Annulla</button>
+	          </div>
+	        </div>
+	      </div>
+	    </div>   
+
+
+
+		<!-- FOOTER -->
+		<footer id="contattiLabel">
+			<div class="container">
+				<h3 class="text-center">CONTACT</h3>
+				<p class="text-center"><em>Continua a sognare!</em></p>
+
+				<div class="row">
+					<div class="col-md-4 col-xs-12">
+					  	<p><strong>ABOUT US</strong></p>
+					  	<p>Sognatori Erranti</p>
+					  	<p><span class="glyphicon glyphicon-map-marker"></span>Pianeta Terra, Via Lattea</p>
+					  	<p><span class="glyphicon glyphicon-envelope"></span>Email: sognatori.erranti@gmail.com</p>
+						<div class="pull-left">
+							<div class="dropdown">
+					          <a href="" class="dropdown-toggle glyphicon glyphicon-lock" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: #E6E6E6"></a> {{amm.username}} &nbsp;
+			                  <a href="" ng-show="amm" class="glyphicon glyphicon-pencil" data-toggle="modal" ng-click="apriNuovoArticolo()"></a>
+					          <div class="dropdown-menu">
+							    <form>
+							    	<p id="logError" ng-show="showError" style="color:red"> Wrong Username or Password </p>
+							    	<input ng-show="!amm" type="text" name="user" class="form-control" ng-model="usernameAmmAttempting" placeholder="Username"/>
+							      	<input ng-show="!amm" type="password" name="pass" class="form-control" ng-model="passwordAmmAttempting" placeholder="Password"/>
+							      	<button ng-show="!amm" class="btn btn-default" ng-click="logInAmm()">LogIn</button>	<br>
+							      	<a ng-show="amm" href="" ng-click="logOutAmm()">LogOut</a>
+							    </form>
+					          </div>
+					        </div>	
+						</div>					  
+					</div>
+						<form name="emailForm" novalidate ng-class="{submitted:emailForm.submitted}">
+							<div class="col-md-8 col-xs-12">
+					            <div class="row">
+						            <div class="col-sm-6 form-group">
+						              	<input name="emailName" ng-model="emailName" class="form-control" placeholder="Name" type="text" required>
+							            <div ng-messages="emailForm.emailName.$error" ng-if='emailForm.emailName.$touched'>
+							                <div ng-message="required" style="color:red;">
+							                    Inserire Name
+							                </div>
+							            </div> 				              
+						            </div>
+						            <div class="col-sm-6 form-group">
+						             	<input name="emailEmail" ng-model="emailEmail" class="form-control" placeholder="Email" type="email" required>
+					            		<div ng-messages="emailForm.emailEmail.$error" ng-if='emailForm.emailEmail.$touched'>
+							                <div ng-message="required" style="color:red;">
+							                    Inserire Email
+							                </div>
+							                <div ng-message="email" style="color:red;">
+							                    Inserire una email valida
+							                </div>							                
+							            </div> 				             	
+						            </div>
+					            </div>
+					            <div class="form-group">
+					            	<textarea name="emailText" ng-model="emailText" class="form-control" placeholder="Comment" rows="5" required></textarea>
+				            		<div ng-messages="emailForm.emailText.$error" ng-if='emailForm.emailText.$touched'>
+						                <div ng-message="required" style="color:red;">
+						                    Inserire Comment
+						                </div>
+						            </div> 	
+					            </div>		
+					            <br>
+					            <div class="row">
+						            <div class="col-md-12 form-group">
+						              <button ng-click="inviaEmail()" class="btn btn-default pull-right">Invia</button>
+						            </div>
+					            </div>
+				          	</div>
+						</form>
+				        
+				</div>
+
+				
+				<div class="row">
+					<!-- SOCIAL -->
+					<div class="text-center">
+						<a href="https://www.facebook.com/groups/144261852616168/?fref=nf">
+							<img src="img/facebook2.png" width="32" height="30" alt="Facebook Sognatori Erranti" />
+						</a>
+						<a href="https://www.instagram.com/sognatorierranti/">
+							<img src="img/big.png" width="32" height="30" alt="Instagram Sognatori Erranti" />
+						</a>
+						<a href="https://twitter.com/NoiSognatori">
+							<img src="img/twitter3.png" width="32" height="30" alt="Twitter Sognatori Erranti" />
+						</a>						 
+					</div>
+
+				</div>		
+			</div>	  
+		</footer>
+	</body>
+</html>

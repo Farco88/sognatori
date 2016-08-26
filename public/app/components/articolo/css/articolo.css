@@ -1,0 +1,42 @@
+
+
+#titolo {
+  text-align: center; 
+  color: black;
+  font-family: Bell MT;
+  font-size: 40px;
+}
+
+
+#coloresfondo{
+  background-color: #F7F9F8;
+}
+
+
+#fotointerviste {
+      height: 580px;
+      width: 100%;
+}
+
+
+
+.immaginearticolo{
+  height: 300px;
+  width: auto;
+
+}
+
+
+.commenti{  
+  font-family: Montserrat;    
+  font-size: 15px;
+  color: #25A09D;
+}
+
+
+.commenti a{  
+  font-family: Montserrat;    
+  font-size: 15px;
+  color: #25A09D;
+}
+

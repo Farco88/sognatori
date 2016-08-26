@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Sognatori Erranti Articolo</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--mio stile-->
+	<link rel="stylesheet" href="app/components/articolo/css/articolo.css">
+  
+
+	<style type="text/css">
+		form.submitted .ng-invalid
+		{
+		    border:1px solid #f00;
+		}    
+
+		.giaRegistrato{
+		    border:1px solid #f00;
+		}
+
+		.product-social-links {
+		    line-height: 10px;
+		}
+
+	</style>
+  
+  
+</head>
+<body  data-spy="scroll" data-target=".navbar" data-offset="50" >
+
+
+	<!-- Load Facebook SDK for JavaScript -->
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+
+	<div id="coloresfondo">
+			<menu-mio></menu-mio>
+
+		<div  ng-switch on="categoria">
+			<div class="animate-switch" ng-switch-when="Intervista">
+				<img id="fotointerviste" src="img/interviste.jpg">
+			</div>
+			<div class="animate-switch" ng-switch-when="Libro">
+				<img id="fotointerviste" src="img/libri.jpg">
+			</div>
+			<div class="animate-switch" ng-switch-default>
+				<img id="fotointerviste" src="img/cultura.jpg">
+			</div>
+		</div>
+
+		<!--titolo articolo-->
+		<br><br><br>
+		 <div class="text-center">
+			<h1 id="titolo">{{articolo.title}} </h1>
+			<small class="text-muted"> {{articolo.datetime  | date:'dd MMM yyyy HH:mm'}}	</small>
+		 </div><br><br>
+		
+		 <!--immagine singola articolo-->
+		<div class="text-center"> 
+			<img class="immaginearticolo" ng-src="{{articolo.pathImmagine}}" alt="" class="img-responsive text-center" >		
+		</div> 
+
+
+		<div ng-controller="articoloCtrl">
+
+			<!-- Get commenti -->
+			<a ng-init="getCommenti()"></a>
+
+
+			<!-- MODAL RECUPERA PASSWORD -->
+			<div class="modal fade" id="recupera-modal">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header"> 
+				            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				              <span aria-hidden="true">&times;</span>
+				            </button>	          		
+		          			<h3>Recupera password</h3>
+		          		</div>
+						<form name="recuperaForm" novalidate ng-class="{submitted:recuperaForm.submitted}" class="form-inline">
+			          		<div class="modal-body">
+						        <!-- Email -->
+						        <div class="form-group">
+						            <input type="email" name="emailAddress" ng-model="user.email"  class="form-control" placeholder="Inserire e-mail" required />					                   
+						        </div> <br> <br>
+						        <p>La password sarà inviata a: {{user.email}}</p>			          		
+			          		</div> <br>
+			          		<div class="modal-footer">
+			          			<p ng-show="utenteDaRegistrare" style="color:red;">L'email non risulta registrata. Si prega di registrarsi</p>
+			          			<button class="btn btn-default" ng-click="inviaPassword()">Invia</button>
+			          		</div>		          		
+			          	</form>	          		
+					</div>
+				</div>
+			</div>
+		
+			<!-- MODAL REGISTRAZIONE UTENTE -->
+		    <div class="modal fade" id="registrazione-modal">
+		      	<div class="modal-dialog" role="document">
+		        	<div class="modal-content">   
+		          		<div class="modal-header"> 
+				            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				              <span aria-hidden="true">&times;</span>
+				            </button>	          		
+		          			<h3>Registrati</h3>
+		          		</div>
+		          		<form name="registerForm" novalidate ng-class="{submitted:registerForm.submitted}" class="form-inline">
+			          		<div class="modal-body">						
+						        <!-- User Name -->
+						        <div class="form-group">            
+						            <input type="text" name="username" ng-model="user.username"  class="form-control" placeholder="Inserire Username" required ng-class="{'giaRegistrato': usernameGiaPresente}"/>
+						            <div ng-messages="registerForm.username.$error" ng-if='registerForm.username.$touched'>
+						                <div ng-message="required" style="color:red;">
+						                    Inserire l'username
+						                </div>
+						            </div>            
+						        </div>	<br>
+						        <!-- Email -->
+						        <div class="form-group">
+						            <input type="email" name="emailAddress" ng-model="user.email"  class="form-control" placeholder="Inserire e-mail" required ng-class="{'giaRegistrato': emailGiaPresente}"/>
+						            <div ng-messages="registerForm.emailAddress.$error" ng-if='registerForm.emailAddress.$touched'>
+						                <div ng-message="required" style="color:red;">
+						                    Inserire l'email
+						                </div>
+						                <div ng-message="email" style="color:red;">
+						                    Inserire una email valida
+						                </div>
+						            </div>            
+						        </div> 	<br>					        
+						        <!-- Password -->
+						        <div class="form-group">
+						            <input type="password" name="password" class="form-control" placeholder="Inserire password" ng-model="user.password" required />
+						            <div ng-messages="registerForm.password.$error" ng-if='registerForm.password.$touched'>
+						                <div ng-message="required" style="color:red;">Inserire Password</div>
+						            </div>
+						        </div> <br>
+						        <!-- Conferma Password -->
+						        <div class="form-group">
+						            <input type="password" name="confirmPassword" class="form-control" placeholder="Conferma password"
+						                   ng-model="user.confirmPassword" 
+						                   required compare-to="user.password" />
+						            <div ng-messages="registerForm.confirmPassword.$error" ng-if='registerForm.confirmPassword.$touched'>
+						                <div ng-message="compareTo" style="color:red;">La password deve corrispondere</div>
+						            </div>
+						        </div>    <br> 
+						        <div ng-show="usernameGiaPresente" style="color:red">Username già utilizzata, si prega di usarne un'altra</div> <br>
+						        <div ng-show="emailGiaPresente" style="color:red">Email già utilizzata, si prega di usarne un'altra</div> <br>
+						        <!-- Sesso -->
+								<div class="radio">
+									<h5><strong>Sesso:</strong></h5> 
+									<input type="radio" ng-model="user.sesso" value="Maschio">Maschio
+									<input type="radio" ng-model="user.sesso" value="Femmina">Femmina
+								</div>		<br>			        
+						        <!-- Data di nascita -->
+					        	<!-- Giorno -->
+					        	<h5><strong>Data di nascita:</strong></h5>
+					        	<select ng-model="user.giorno" class="form-control" 
+					        		ng-options="giorno for giorno in giorni" ng-size=20 >
+					        		<option value="">Giorno</option>
+					        	</select>
+					        	<!-- Mese -->
+					        	<select ng-model="user.mese" class="form-control" 
+					        		ng-options="mese for mese in mesi" ng-size=20 >
+					        		<option value="">Mese</option>
+					        	</select>
+					        	<!-- Anno -->
+					        	<select ng-model="user.anno" class="form-control" 
+					        		ng-options="anno for anno in anni" ng-size=20>
+					        		<option value="">Anno</option>
+					        	</select>	<br> <br>
+					        	<!-- Conferma trattamento dati personali -->
+					        	<div class="form-group">
+					        		<p>Informativa sulla <a href="" ng-click="apriPrivacy()">Privacy</a></p>
+									<div class="pre-scrollable" ng-show="showPrivacy">
+										<p>
+										<strong><h2>(Privacy policy ai sensi dell’art. 13 del d.lgs. 196/2003)</h2></strong>
+										</p>
+										<p> 
+										La informiamo che i dati che fornirà al gestore del presente sito al momento della compilazione del "form contatti" (detto anche form mail) del sito stesso, saranno trattati nel rispetto delle disposizioni di cui al d.lgs. 196/2003, Codice in materia di protezione dei dati personali.
+										Il form contatti messo a disposizione sul sito ha il solo scopo di consentire ai visitatori del sito di contattare, qualora lo desiderino, il gestore del sito stesso, inviando tramite il suddetto form una e-mail al gestore.
+										La presente informativa riguarda i dati personali inviati dall’utente visitatore al momento della compilazione del form contatti.
+										La informiamo del fatto che i dati che conferirà volontariamente tramite il form verranno tramutati in una email che eventualmente potrà essere conservata all’interno del sistema di ricezione di e-mail utilizzato dal titolare del sito.
+										Questi dati non verranno registrati su altri supporti o dispositivi, né verranno registrati altri dati derivanti dalla sua navigazione sul sito.
+										</p>
+										<p>
+										<strong>1. Finalità del trattamento dei dati personali</strong><br>
+										Le finalità del trattamento dei suoi dati sono le seguenti:
+										I dati da lei inviati verranno utilizzati al solo scopo di poterla eventualmente ricontattare tramite i riferimenti da lei lasciati tramite il form contatti per evadere eventuali sue richieste contenute nel messaggio da lei inviato.
+										</p> 
+										<p>
+										<strong>2. Natura dei dati trattati e modalità del trattamento</strong> <br>
+										I dati personali trattati saranno esclusivamente quelli da lei forniti all’atto della compilazione del form contatti.
+										Il trattamento dei dati personali conferiti è realizzato per mezzo delle operazioni o del complesso delle operazioni indicate all’art. 4 comma 1 lett. a) D. Lgs. 196/2003.
+										Il trattamento è svolto direttamente dal titolare.
+										</p> 
+										<p>
+										<strong>3. Facoltatività del conferimento dei dati</strong><br>
+										Il conferimento dei dati è facoltativo. Tuttavia, il rifiuto al conferimento determinerà l’impossibilità ad essere ricontattato da Round Table Italia.
+										</p>  
+										<p>
+										<strong>4. Titolare del trattamento</strong><br>
+										Titolare del trattamento è Sognatori Erranti
+										</p>  
+										<p>
+										<strong>5. Diritti dell'interessato</strong><br>
+										I soggetti ai quali i dati personali fanno riferimento hanno il diritto in qualunque momento di ottenere la conferma dell'esistenza o meno dei dati stessi, e di conoscerne il contenuto e l'origine, verificarne l'esattezza o richiedere l'aggiornamento, integrazione oppure la correzione (art. 7 D.Lgs. 196/03).
+										Ai sensi del medesimo articolo, l'utente ha il diritto di chiedere la cancellazione, la trasformazione in forma anonima o il blocco dei dati trattati in violazione della legge e, in ogni caso, di opporsi al loro trattamento per motivi legittimi.
+										</p>  
+										<p>
+										<strong>6. Durata del trattamento</strong><br>
+										Il trattamento avrà una durata non superiore a quella necessaria alle finalità per le quali i dati sono stati raccolti.
+										</p> 
+										<button class="btn btn-default" ng-click="showPrivacy = false;">Ok</button>
+					          		</div>					        		
+						        	<div class="checkbox">
+										<label><input type="checkbox" name="check" class="form-control" ng-model="user.check" required> Accetto</label>
+									</div>	
+					                <div ng-show="errorPrivacy" style="color:red;">E' necessario dare il consenso al trattamento dei dati personali
+					                </div>				
+					        	</div>
+	
+			          		</div>
+			          		<div class="modal-footer">
+			          			<button class="btn btn-default" ng-click="register()">Registrati</button>
+			          		</div>
+		          		</form>
+		      		</div>
+		  		</div>
+			</div>	
+
+
+			<!--ARTICOLO-->		
+			<div  class="container text-center">		
+			  	<span ng-bind-html='articolo.article'></span> <br><br>
+			  	<small class="text-muted">a cura di {{articolo.nome}} {{articolo.cognome}}</small>						
+				<br>
+				<br>
+				<br>
+				<!--CONTENITORE COMMENTI-->	
+				<span class="commenti">
+					<span class="pull-left">{{articolo.commenti.length}} Commenti</span>
+					<span class="text-center product-social-links">
+						<!-- Facebook -->
+						<span fb-like="social.Url"></span>
+						<!-- Twitter -->
+						<span tweet="social.Name" tweet-url="myModel.Url"></span>
+						<!-- Google + -->
+						<span google-plus="social.Url"></span>
+						<!-- Pinterest -->
+						<!-- <span pin-it="social.Name" pin-it-image="social.ImageUrl" pin-it-url="social.Url"></span>						 -->
+
+						
+					</span>
+					<a ng-click="vuolePartecipare()" href="" class="pull-right">
+						<span>{{articolo.cuori.length}}  <span class="glyphicon glyphicon-heart"></span></span>
+					</a>						
+				</span>
+				
+				<br><br>	
+				<hr>
+				<br><br>
+				<form name="commentaForm" novalidate ng-class="{submitted:commentaForm.submitted}">
+					<textarea class="form-control" placeholder="Partecipa alla discussione..." ng-attr-rows="{{commentRow || '5'}}" ng-focus="vuolePartecipare()" ng-model="commento" required name="commento"></textarea>
+					<br>
+					<span ng-show="puoCommentare">
+			            <div ng-messages="commentaForm.commento.$error" ng-if='commentaForm.commento.$touched'>
+			                <div ng-message="required" style="color:red;">
+			                    Inserire Commento
+			                </div>
+			            </div> 						
+						<span class="dropdown pull-left">
+							<a href="" data-toggle="dropdown" class="dropdown-toggle">
+								<img ng-src="{{immagineProfilo}}" style="height:50px" class="pull-left"><p>     </p>
+								<span class="pull-left">{{userLogged.username}}<b class="caret"></b></span>						
+							</a>
+							<span class="dropdown-menu">
+								<a href="" ng-click="vaiProfilo()">Area Personale</a><br>
+								<a href="" ng-click="logOut()">Log Out</a>
+							</span>
+						</span>
+						<a ng-click="miPiace()">
+							<span id="cuore" class="glyphicon glyphicon-heart-empty pull-left"></span>	
+						</a>
+						
+		
+
+
+
+						<button ng-click="commenta()" class="btn btn-default pull-right">Commenta</button><br><br>	
+					</span>
+				</form>
+					
+				
+				<div class="row" ng-show="loggarsi">
+						<form name="loginForm" novalidate ng-class="{submitted:loginForm.submitted}" class="form-inline">
+					        <!-- Email -->
+					        <div class="form-group">
+					            <input type="email" name="emailAddress" ng-model="user.email"  class="form-control" placeholder="Inserire e-mail" required/>
+					            <div ng-messages="loginForm.emailAddress.$error" ng-if='loginForm.emailAddress.$touched'>
+					                <div ng-message="required" style="color:red;">
+					                    Inserire l'email
+					                </div>
+					                <div ng-message="email" style="color:red;">
+					                    Inserire una email valida
+					                </div>
+					            </div>            
+					        </div> 	<br>
+					        <!-- Password -->
+					        <div class="form-group">
+					            <input type="password" name="password" class="form-control" placeholder="Inserire password" ng-model="user.password" ng-size=20 required />
+					            <div ng-messages="loginForm.password.$error" ng-if='loginForm.password.$touched'>
+					                <div ng-message="required" style="color:red;">
+					                	Inserire la password
+				                	</div>
+					            </div>
+					        </div> <br>
+					        <span ng-show="authError">
+					        	<strong style="color:red;">Email o password non valida.</strong> 
+					        	<a href="" ng-click="apriModalRecupera()">Recupera password</a>
+				        	</span> <br>
+					        <button class="btn btn-default" ng-click="logIn()">LogIn</button>	<br>
+					        <small>Non ancora registrato? <a href="" ng-click="apriModalRegistrazione()">Registrati</a></small>
+
+						</form>
+				</div>	<br><br><br><br><br><br>	
+
+				<button class="btn btn-default" ng-click="mostraCommenti()">{{testoMostrareCommenti}}</button>
+				<div ng-show="mostrareCommenti" class="row" class="pull-left" ng-repeat="commento in articolo.commenti">
+					<div class="col-xs-2">
+						<img ng-src="{{commento.pathImmagine}}" style="height: 50px"> 	
+					</div>
+					<div class="col-xs-10">
+						<strong class="pull-left">{{commento.username}}</strong> 
+						<small class="pull-right text-muted">{{commento.data  | date:'dd MMM yyyy HH:mm'}}</small><br>
+						<p class="pull-left">{{commento.testo}}</p>	
+					</div>												
+					<br><br><br><br><br>
+				</div>
+
+				<br><br>
+								
+		   </div>
+
+		</div>  
+		<hr>
+	</div>
+
+	 
+
+
+	
+
+	
+	
+	<footer-mio></footer-mio>
+
+
+</body>
+</html>

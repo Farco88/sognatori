@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Sognatori Erranti</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<!--mio stile-->
+  	<link rel="stylesheet" href="app/components/profilo/css/profilo.css"> 
+
+
+	<style type="text/css">
+		form.submitted .ng-invalid
+		{
+		    border:1px solid #f00;
+		}    
+
+		.giaRegistrato{
+		    border:1px solid #f00;
+		}		
+	</style>
+
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+
+
+	<menu-mio></menu-mio>
+
+	<br><br><br><br><br><br><br>
+
+	<div id="coloresfondo" ng-controller="profiloCtrl" class="text-center">
+		<!-- area personale -->
+		<img id="fotopersonale" ng-src="{{immagineProfilo}}" /><br>
+		<p class="text-center">
+			<button class="btn btn-default" type="file" ngf-select="uploadFiles($file, $invalidFiles)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+	            Carica Immagine
+	        </button>
+	        <span id="coloremacchina" class="glyphicon glyphicon-camera"></span>
+        </p> <br>
+        <span >File: {{f.name}}</span>
+        <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+            <span class="progress" ng-show="f.progress >= 0">
+                <div style="width:{{f.progress}}%"  
+                     ng-bind="f.progress + '%'"></div>
+            </span>
+        </div>     
+        {{errorMsg}}
+		<div class="container">
+			<h3 id="benvenutoutente" class="text-center">BENVENUTO</h3><br>
+			<p>Username: {{userLogged.username}}</p><br>
+			<form name="modifyForm" novalidate ng-class="{submitted:modifyForm.submitted}" class="form-inline">	          	
+		        <!-- User Name -->
+		        <div class="form-group">      
+		        	<p>Modifica Username:</p>      
+		            <input type="text" name="username" ng-model="user.username" placeholder="Inserire nuova username" required class="form-control" ng-class="{'giaRegistrato': usernameGiaPresente}"/>   
+		            <div ng-messages="modifyForm.username.$error" ng-if='modifyForm.username.$touched'>
+		                <div ng-message="required" style="color:red;">
+		                    Inserire l'username
+		                </div>
+		            </div> 		                    
+		        </div>	<br>
+		        <div ng-show="usernameGiaPresente" style="color:red">Username già utilizzata, si prega di usarne un'altra</div> <br>	        				        
+		        <!-- Nuova Password -->
+		        <div class="form-group">
+		        	<br><p>Modifica Password:</p>
+		            <input type="password" name="password" class="form-control" placeholder="Inserire nuova password" ng-model="user.password"/>
+		        </div> <br>
+		        <!-- Conferma Nuova Password -->
+		        <div class="form-group">
+		            <input type="password" name="confirmPassword" class="form-control" placeholder="Conferma nuova password"
+		                   ng-model="user.confirmPassword" 
+		                   compare-to="user.password" />
+		            <div ng-messages="modifyForm.confirmPassword.$error" ng-if='modifyForm.confirmPassword.$touched'>
+		                <div ng-message="compareTo" style="color:red;">La password deve corrispondere</div>
+		            </div>
+		        </div>    <br> 
+		        <!-- Sesso -->
+				<div class="radio">
+					<h5><strong>Sesso:</strong></h5> 
+					<input type="radio" ng-model="user.sesso" value="Maschio">Maschio
+					<input type="radio" ng-model="user.sesso" value="Femmina">Femmina
+				</div>		<br>			        
+		        <!-- Data di nascita -->
+	        	<!-- Giorno -->
+	        	<h5><strong>Data di nascita:</strong></h5>
+	        	<select ng-model="user.giorno" class="form-control" 
+	        		ng-options="giorno for giorno in giorni" ng-size=20 >
+	        		<option value="">Giorno</option>
+	        	</select>
+	        	<!-- Mese -->
+	        	<select ng-model="user.mese" class="form-control" 
+	        		ng-options="mese for mese in mesi" ng-size=20 >
+	        		<option value="">Mese</option>
+	        	</select>
+	        	<!-- Anno -->
+	        	<select ng-model="user.anno" class="form-control" 
+	        		ng-options="anno for anno in anni" ng-size=20>
+	        		<option value="">Anno</option>
+	        	</select>		<br>		<br>			
+	  			<button class="btn btn-default" ng-click="salva()">Salva</button>
+	  		</form>
+	  		<br><br><br>
+	  		<button class="btn1" ng-click="ritornaArticolo()">Ritorna Articolo</button>
+		</div>
+	
+
+		
+		
+
+	</div>
+
+	
+
+
+
+	<footer-mio></footer-mio>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+	</head>
+	<body>
+
+  
+
+
+	    <!-- ARTICOLI PREVIEW-->
+	    <a ng-init="getArticoli()"></a>
+
+		<div id="categoriaLabel"></div>
+		<!-- Preview Articoli -->
+	    <div class="container">	    
+			<div class="row">
+				<div class="col-xs-12">
+					<h2>{{sottocategoria}}	</h2>			    			
+				</div>				
+			</div>	    	
+			<div class="row" ng-repeat="articolo in articoli">
+				<div class="col-md-4 col-xs-12">
+					<div class="thumbnail">
+				   		<img ng-src="{{articolo.pathImmagine}}">  
+				  	</div>          
+				</div>
+				<div class="col-md-8 col-xs-12">
+				  	<!-- edit -->
+					<button ng-click="findArticolobyId(articolo._id)" ng-if="amm.username !== undefined" class="btn btn-link glyphicon glyphicon-edit pull-right"></button>
+					<!-- remove -->
+					<button ng-click="apriConfermaRimozione(articolo._id)" ng-if="amm.username !== undefined" class="btn btn-link glyphicon glyphicon-remove pull-right"></button>
+
+					<h3> {{articolo.title}} </h3>
+					<small class="pull-left text-muted">{{articolo.datetime  | date:'dd MMM yyyy HH:mm'}}</small>
+					<br><br>
+					<!-- <div class="trix-content">{{articolo.article | limitTo:400}}</div> -->
+				 	<p><span ng-bind-html='articolo.article | limitTo:400'></span>...</p>
+				 	<!-- <p> {{articolo.article | limitTo:400}} ...</p> -->
+				 	<small class="pull-left text-muted">a cura di {{articolo.nome}} {{articolo.cognome}}</small> <br><br>
+					<small class="pull-left commenti">{{articolo.commenti.length}} Commenti</small>
+					<span class="pull-right commenti">{{articolo.cuori.length}} <span class="glyphicon glyphicon-heart"></span></span>
+				 	<br><br><br>
+				 	<button class="btn1 pull-right" ng-click="leggiTutto(articolo)">Leggi Tutto</button>
+				</div>
+			</div>
+			<br><br>
+			<div class="text-center">
+				<button ng-click="getAltriArticoli()" ng-show="lunghezzaArticTot != articoli.length" class="btn btn-default btn-circle glyphicon glyphicon-chevron-down"></button>
+			</div>          
+	    </div>	
+
+		<!--SOTTOCATEGORIE -->
+		<div class="bg-1" id="sogniLabel" ng-show="categoria == 'Cultura'">	  
+		  <div class="container">
+			<h3 class="text-center">CATEGORIES</h3><br>
+			<p class="text-center"></p>
+
+		   <div class="row text-center">
+				<div class="col-xs-12 col-md-4">
+					<div class="thumbnail">
+						<div class="crop">
+							<img src="img/moda4.jpg" alt="moda">
+						</div>				
+						<p><strong>FASHION</strong></p>
+						<button class="btn  btn-default" ng-click="getArticoliCultura('Fashion')">SFOGLIA</button>
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-4">
+					<div class="thumbnail">
+						<div class="crop">
+							<img src="img/cinema.jpg" alt="cinema">
+						</div>				
+						<p><strong>CINEMA</strong></p>
+						<button class="btn btn-default" ng-click="getArticoliCultura('Cinema')">SFOGLIA</button>
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-4">
+					<div class="thumbnail">
+						<div class="crop">
+							<img src="img/giappone2.jpg" alt="giappone">
+						</div>								
+						<p><strong>JAPAN</strong></p>
+						<button class="btn  btn-default" ng-click="getArticoliCultura('Giappone')">SFOGLIA</button>
+					</div>
+				</div>
+			</div>
+			<div class="row text-center">
+				<a href="" ng-click="getTuttiArticoliCultura()">Read More</a>
+			</div>
+		  </div>	  
+		</div>	    			
+	</body>
+</html>

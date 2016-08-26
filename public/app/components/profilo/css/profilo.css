@@ -1,0 +1,21 @@
+#coloresfondo{
+  background-color: #F7F9F8;
+}
+
+
+#fotopersonale{
+  display: block;
+  margin: 0 auto;
+  height: 300px;
+}
+
+#benvenutoutente{  
+  font-family: Montserrat;    
+  font-size: 20px;
+  color: #25A09D;
+}
+
+
+#coloremacchina{
+  color: #25A09D;
+}
