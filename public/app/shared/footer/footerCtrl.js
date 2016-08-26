@@ -79,12 +79,12 @@ app.controller("footerCtrl", function($scope, $location, $rootScope, $http, Uplo
 
     // Trovo un articolo per id per poi modificarlo
     $scope.findArticolobyId = function(id){
+    	$scope.f = null;
     	findArticolobyId(id)
 			.success(function(response){
 				// Assegno i valori della risposta
 				$scope.title = response.title;		
-				$scope.article = response.article;
-				$scope.f.name = response.pathImmagine;	
+				$scope.article = response.article;	
 				$scope.idArt = response._id;
 				// Cambio il titolo dell'azione in Modifica
 				$scope.azioneArticolo = "Modifica Articolo";

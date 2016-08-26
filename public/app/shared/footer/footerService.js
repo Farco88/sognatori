@@ -61,7 +61,6 @@ app.service("Amministratori", ["$http", function($http){
 			"datetime": datetime,
 			"file": file
 		};
-		console.log(file);
     	if (file) {
 	    	if(file.type.split('/')[0] === 'image'){
 		        file.upload = Upload.upload({
