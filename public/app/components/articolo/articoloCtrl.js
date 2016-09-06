@@ -32,6 +32,8 @@ app.controller("articoloCtrl", function($scope, $location, $rootScope, $http, Ar
               ImageUrl: $rootScope.articolo.pathImmagine
   	};	
 
+
+
 	$scope.mostraCommenti = function(){
 		if($scope.testoMostrareCommenti === "Mostra Commenti"){
 			$scope.mostrareCommenti = true;

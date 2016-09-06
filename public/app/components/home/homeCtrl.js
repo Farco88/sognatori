@@ -1,10 +1,13 @@
 
-app.controller("homeCtrl", function($scope, $location, $rootScope, $http, Home){
+app.controller("homeCtrl", function($scope, $location, $rootScope, $http, $interval, Home){
 
 	// Definisco le variabili
 	$scope.intervista;
 	$scope.libro;
 	$scope.cultura;
+
+	// Faccio andare avanti le immagini dello slider ogni tot secondi
+	$interval( function(){ $scope.avanti(); }, 7000);
 
 	$scope.getNews = function(){
 		getNews("Intervista")
@@ -50,25 +53,29 @@ app.controller("homeCtrl", function($scope, $location, $rootScope, $http, Home){
 	$scope.avanti = function(){
 		if($scope.indice == $scope.carouselFoto.length-1){
 			$scope.indice = 0;
-			document.getElementById($scope.carouselFoto[$scope.indice]).className = "active";
-			document.getElementById($scope.carouselFoto[$scope.carouselFoto.length-1]).className = "";
+			attivo = $scope.carouselFoto[$scope.indice]
+			passivo = $scope.carouselFoto[$scope.carouselFoto.length-1];
 		}else{
 			$scope.indice++;
-			document.getElementById($scope.carouselFoto[$scope.indice]).className = "active";
-			document.getElementById($scope.carouselFoto[$scope.indice-1]).className = "";			
+			attivo = $scope.carouselFoto[$scope.indice];
+			passivo = $scope.carouselFoto[$scope.indice-1];		
 		}
+		document.getElementById(attivo).className = "active";
+		document.getElementById(passivo).className = "";		
 	} // fine function()
 
 	$scope.indietro = function(){
 		if($scope.indice == 0){
 			$scope.indice = $scope.carouselFoto.length-1;
-			document.getElementById($scope.carouselFoto[$scope.indice]).className = "active";
-			document.getElementById($scope.carouselFoto[0]).className = "";			
+			attivo = $scope.carouselFoto[$scope.indice];
+			passivo = $scope.carouselFoto[0];		
 		}else{
 			$scope.indice--;
-			document.getElementById($scope.carouselFoto[$scope.indice]).className = "active";
-			document.getElementById($scope.carouselFoto[$scope.indice+1]).className = "";		
+			attivo = $scope.carouselFoto[$scope.indice];
+			passivo = $scope.carouselFoto[$scope.indice+1];	
 		}
+		document.getElementById(attivo).className = "active";
+		document.getElementById(passivo).className = "";			
 	} // fine function()	
 
 

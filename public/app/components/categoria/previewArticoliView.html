@@ -34,8 +34,7 @@
 					<h3> {{articolo.title}} </h3>
 					<small class="pull-left text-muted">{{articolo.datetime  | date:'dd MMM yyyy HH:mm'}}</small>
 					<br><br>
-					<!-- <div class="trix-content">{{articolo.article | limitTo:400}}</div> -->
-				 	<p><span ng-bind-html='articolo.article | limitTo:400'></span>...</p>
+				 	<p><span ng-bind-html='getArticoloPulito(articolo.article, true)'></span>...</p>
 				 	<!-- <p> {{articolo.article | limitTo:400}} ...</p> -->
 				 	<small class="pull-left text-muted">a cura di {{articolo.nome}} {{articolo.cognome}}</small> <br><br>
 					<small class="pull-left commenti">{{articolo.commenti.length}} Commenti</small>

@@ -1,4 +1,4 @@
-var app = angular.module("app", ["ngSanitize", "ngRoute", "ngFileUpload", "angularTrix", "ngMessages", "angulike"]);
+var app = angular.module("app", ["ngSanitize", "ngRoute", "ngFileUpload", "ui.tinymce", "ngMessages", "angulike"]);
 
 
 app.config(function($routeProvider){

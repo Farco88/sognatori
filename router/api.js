@@ -3,6 +3,7 @@ var express = require('express');
 var multer = require('multer');
 var nodemailer = require("nodemailer");
 var smtpTransport = require('nodemailer-smtp-transport');
+var fs = require('fs');
 
 var router = express.Router();
 
@@ -43,8 +44,7 @@ var storage = multer.diskStorage({
     cb(null, './uploads/')
   },
   filename: function (req, file, cb) {
-  	datetimestamp = Date.now();
-  	immagineSalvata = file.originalname.split('.')[0] + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
+  	immagineSalvata = file.originalname.split('.')[0] + '.' + file.originalname.split('.')[file.originalname.split('.').length -1];
     cb(null, immagineSalvata)
   }
 })
@@ -90,6 +90,17 @@ router.post("/inviaEmailRegistrazione", function(req, res){
       }
   	});
 });	
+
+
+// API che legge tutti i file che si trovano nella cartella uploads
+router.post("/leggiImgCaricate", function(req, res){
+
+	fs.readdir("./uploads", function(err, items) {
+	    res.json(items);
+	});
+
+
+});
 
 // API che invia all'email la password recuperata
 router.post("/inviaEmailRecupera", function(req, res){
@@ -378,7 +389,7 @@ router.post("/inserisciArticolo", function(req, res){
 
 // API che inserisceImmagine
 router.post("/inserisciImmagine", upload.single('file'), function(req, res){
-    
+    res.json(true);
 });	
 // router.post("/inserisciImmagine", function(req, res){
 //     upload(req,res,function(err){

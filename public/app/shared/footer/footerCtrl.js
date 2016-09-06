@@ -1,6 +1,6 @@
 
 
-app.controller("footerCtrl", function($scope, $location, $rootScope, $http, Upload, $timeout, Amministratori, Categoria, Email){
+app.controller("footerCtrl", function($scope, $sce, $location, $rootScope, $http, Upload, $timeout, Amministratori, Categoria, Email){
 
 	// Definizione variabili
 	$rootScope.logAmmName = "Accedi";	
@@ -15,6 +15,16 @@ app.controller("footerCtrl", function($scope, $location, $rootScope, $http, Uplo
 	$scope.azioneArticolo = "Nuovo Articolo";
 	$scope.idArt;
 	$scope.f="";
+	$scope.listaImmagini=[];
+
+
+	$scope.tinymceOptions = {
+	    format:'text',
+	    plugins: 'link image code media textcolor colorpicker',
+	    media_live_embeds: true,
+	    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | forecolor backcolor |code image media'  
+	};	
+
 
 	$scope.logInAmm = function(){		
 		checkUsernamePass($scope.usernameAmmAttempting, $scope.passwordAmmAttempting)
@@ -23,6 +33,11 @@ app.controller("footerCtrl", function($scope, $location, $rootScope, $http, Uplo
 				// Se non c'è errore mostra Logout e recupera l'oggetto amministratore
 				if(!$scope.showError){
 					$rootScope.amm = response.user;
+					// Leggo le immagini caricate
+			    	leggiImgCaricate()
+			    		.success(function(response){
+							$scope.listaImmagini = response;
+			    		});					
 				}					
 			});
 
@@ -38,9 +53,10 @@ app.controller("footerCtrl", function($scope, $location, $rootScope, $http, Uplo
 		$scope.azioneArticolo = "Nuovo Articolo";
 		$scope.title = "";		
 		$scope.article = "";
-		$scope.genre = $scope.generi[0];		
+		$scope.genre = $scope.generi[0];	
 		$('#articolo-modal').modal('show');
 	} // fine function apriNuovoArticolo()
+
 
 
 	// Assegno a $scope.f il file caricato
@@ -49,6 +65,45 @@ app.controller("footerCtrl", function($scope, $location, $rootScope, $http, Uplo
         $scope.errFile = errFiles && errFiles[0];
         
     }
+
+
+    $scope.getArticoloPulito = function(articolo, preview){
+    	$scope.articoloPulito = articolo;
+	  	// Centro
+	  	$scope.articoloPulito = $scope.articoloPulito.replace(/style="text-align: center;"/g, 'class="text-center"');
+	  	$scope.articoloPulito = $scope.articoloPulito.replace(/<p><img style="display: block; margin-left: auto; margin-right: auto;"/g, '<p class="text-center"><img');
+	  	// Destra
+	  	$scope.articoloPulito = $scope.articoloPulito.replace(/<p style="text-align: right;">/g, '<p class="pull-right">');
+	  	$scope.articoloPulito = $scope.articoloPulito.replace(/<p><img style="float: right;"/g, '<p class="pull-right"><img');
+	  	// Sinistra
+	  	$scope.articoloPulito = $scope.articoloPulito.replace(/<p style="text-align: left;">/g, '<p class="pull-left">'); 	
+	  	$scope.articoloPulito = $scope.articoloPulito.replace(/<p><img style="float: left;"/g, '<p class="pull-left"><img');
+	  	// A capi
+	  	$scope.articoloPulito = $scope.articoloPulito.replace(/<p class="pull-right">&nbsp;<\/p>/g, '</br>'); 
+	  	$scope.articoloPulito = $scope.articoloPulito.replace(/<p class="pull-left">&nbsp;<\/p>/g, '</br>'); 
+	  	$scope.articoloPulito = $scope.articoloPulito.replace(/<p class="text-center">&nbsp;<\/p>/g, '</br>'); 
+
+	    if(preview){
+	    	$scope.articoloPulito = $scope.articoloPulito.substring(0, 400);
+	    }  	  	
+
+	    // Mi fido degli iframe inseriti
+	    $scope.articoloPulito=$sce.trustAsHtml($scope.articoloPulito);	
+
+	    return $scope.articoloPulito;
+    } // fine function()
+
+
+
+    $scope.inserisciImmagine = function(file, errFiles){
+        $scope.f = file;
+        $scope.errFile = errFiles && errFiles[0];    	
+    	insertImmagine($scope.f, Upload, $timeout)
+    		.success(function(response){
+    			console.log("Immagine inserita");
+    		});
+    } // fine function()
+
 
     // Salvo un articolo
     $scope.salvaArticolo = function(){

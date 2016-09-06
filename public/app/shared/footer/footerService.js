@@ -10,6 +10,32 @@ app.service("Amministratori", ["$http", function($http){
 	}; // fine checkUsernamePass
 
 
+	leggiImgCaricate = function(){
+		info = {}
+		return $http.post("/leggiImgCaricate", info);
+	} // fine function leggiImmagini()
+
+
+	insertImmagine = function(file, Upload, $timeout){
+		if(file.type.split('/')[0] === 'image'){
+				file.upload = Upload.upload({
+		            url: '/inserisciImmagine',
+		            data: {file: file}
+		        });
+		        file.upload.then(function (response) {
+		            $timeout(function () {
+		                file.result = response.data;
+		            });
+		        }, function (response) {
+		            if (response.status > 0)
+		                $scope.errorMsg = response.status + ': ' + response.data;
+		        }, function (evt) {
+		            file.progress = Math.min(100, parseInt(100.0 * 
+		                                     evt.loaded / evt.total));
+		        });   			
+		}
+	} // fine function insertImmagine()
+
 
 	insertArticolo = function(amm, title, article, genre, file, Upload, $timeout){
 		// Definisco la data

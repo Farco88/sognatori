@@ -237,36 +237,35 @@
 
 
 			<!--ARTICOLO-->		
-			<div  class="container text-center">		
-			  	<span ng-bind-html='articolo.article'></span> <br><br>
-			  	<small class="text-muted">a cura di {{articolo.nome}} {{articolo.cognome}}</small>						
+			<div  class="container">		
+			  	<span ng-bind-html='getArticoloPulito(articolo.article, false)'></span> <br><br>
+			  	<small class="text-muted text-center">a cura di {{articolo.nome}} {{articolo.cognome}}</small>						
 				<br>
 				<br>
 				<br>
 				<!--CONTENITORE COMMENTI-->	
-				<span class="commenti">
+				<div class="commenti">
 					<span class="pull-left">{{articolo.commenti.length}} Commenti</span>
-					<span class="text-center product-social-links">
-						<!-- Facebook -->
-						<span fb-like="social.Url"></span>
-						<!-- Twitter -->
-						<span tweet="social.Name" tweet-url="myModel.Url"></span>
-						<!-- Google + -->
-						<span google-plus="social.Url"></span>
-						<!-- Pinterest -->
-						<!-- <span pin-it="social.Name" pin-it-image="social.ImageUrl" pin-it-url="social.Url"></span>						 -->
-
-						
-					</span>
 					<a ng-click="vuolePartecipare()" href="" class="pull-right">
 						<span>{{articolo.cuori.length}}  <span class="glyphicon glyphicon-heart"></span></span>
 					</a>						
-				</span>
-				
+				</div> <br><br><br>
+				<div class="product-social-links">
+					<!-- Facebook -->
+					<span fb-like="social.Url"></span>
+					<!-- Twitter -->
+					<span tweet="social.Name" tweet-url="myModel.Url"></span>
+					<!-- Google + -->
+					<span google-plus="social.Url"></span>
+					<!-- Pinterest -->
+					<!-- <span pin-it="social.Name" pin-it-image="social.ImageUrl" pin-it-url="social.Url"></span>						 -->
+
+					
+				</div>				
 				<br><br>	
 				<hr>
 				<br><br>
-				<form name="commentaForm" novalidate ng-class="{submitted:commentaForm.submitted}">
+				<form name="commentaForm" novalidate ng-class="{submitted:commentaForm.submitted}" class="text-center">
 					<textarea class="form-control" placeholder="Partecipa alla discussione..." ng-attr-rows="{{commentRow || '5'}}" ng-focus="vuolePartecipare()" ng-model="commento" required name="commento"></textarea>
 					<br>
 					<span ng-show="puoCommentare">
@@ -298,7 +297,7 @@
 				</form>
 					
 				
-				<div class="row" ng-show="loggarsi">
+				<div class="row text-center" ng-show="loggarsi">
 						<form name="loginForm" novalidate ng-class="{submitted:loginForm.submitted}" class="form-inline">
 					        <!-- Email -->
 					        <div class="form-group">
@@ -330,8 +329,12 @@
 
 						</form>
 				</div>	<br><br><br><br><br><br>	
-
-				<button class="btn btn-default" ng-click="mostraCommenti()">{{testoMostrareCommenti}}</button>
+				<div class="row">
+					<div class="col-xs-12 text-center">
+						<button class="btn btn-default" ng-click="mostraCommenti()">{{testoMostrareCommenti}}</button>		
+					</div>
+				</div>
+				
 				<div ng-show="mostrareCommenti" class="row" class="pull-left" ng-repeat="commento in articolo.commenti">
 					<div class="col-xs-2">
 						<img ng-src="{{commento.pathImmagine}}" style="height: 50px"> 	
