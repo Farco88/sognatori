@@ -13,16 +13,16 @@
 }
 
 
-#fotointerviste {
-      height: 580px;
+.fotocategoria {
+      height: auto;
       width: 100%;
 }
 
 
 
 .immaginearticolo{
-  height: 300px;
-  width: auto;
+  height: auto;
+  width: 50%;
 
 }
 

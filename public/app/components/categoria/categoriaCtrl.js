@@ -3,7 +3,7 @@ app.controller("categoriaCtrl", function($scope, $location, $rootScope, $http, C
 	// Definisco le variabili
 	$scope.articoli = [];
 	$scope.articInizio = 0;	
-	$scope.articFine = 2;
+	$scope.articFine = 5;
 	$scope.lunghezzaArticTot = 0;
     $scope.sottocategoria=undefined;
 

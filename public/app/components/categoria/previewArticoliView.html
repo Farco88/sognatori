@@ -35,13 +35,13 @@
 					<small class="pull-left text-muted">{{articolo.datetime  | date:'dd MMM yyyy HH:mm'}}</small>
 					<br><br>
 				 	<p><span ng-bind-html='getArticoloPulito(articolo.article, true)'></span>...</p>
-				 	<!-- <p> {{articolo.article | limitTo:400}} ...</p> -->
 				 	<small class="pull-left text-muted">a cura di {{articolo.nome}} {{articolo.cognome}}</small> <br><br>
 					<small class="pull-left commenti">{{articolo.commenti.length}} Commenti</small>
 					<span class="pull-right commenti">{{articolo.cuori.length}} <span class="glyphicon glyphicon-heart"></span></span>
-				 	<br><br><br>
+				 	<br><br>
 				 	<button class="btn1 pull-right" ng-click="leggiTutto(articolo)">Leggi Tutto</button>
 				</div>
+
 			</div>
 			<br><br>
 			<div class="text-center">

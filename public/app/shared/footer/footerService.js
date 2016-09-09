@@ -16,7 +16,7 @@ app.service("Amministratori", ["$http", function($http){
 	} // fine function leggiImmagini()
 
 
-	insertImmagine = function(file, Upload, $timeout){
+	inserisciImmagine = function(file, Upload, $timeout){
 		if(file.type.split('/')[0] === 'image'){
 				file.upload = Upload.upload({
 		            url: '/inserisciImmagine',
@@ -34,7 +34,8 @@ app.service("Amministratori", ["$http", function($http){
 		                                     evt.loaded / evt.total));
 		        });   			
 		}
-	} // fine function insertImmagine()
+		return $http.post("/inserisciImmagine", info);
+	} // fine function inserisciImmagine()
 
 
 	insertArticolo = function(amm, title, article, genre, file, Upload, $timeout){

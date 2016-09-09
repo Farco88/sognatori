@@ -1,17 +1,17 @@
 
 #fotointerviste {
-      height: 580px;
-      width: 100%;
+      width: 100%; /* Set width to 100% */
+      margin: auto;
 }
 
 #fotolibri{
-      height: 580px;
-      width: 100%;
+      width: 100%; /* Set width to 100% */
+      margin: auto;
 }
 
 #fotocultura{
-      height: 580px;
-      width: 100%;
+      width: 100%; /* Set width to 100% */
+      margin: auto;
 }
 
 #piccolo {

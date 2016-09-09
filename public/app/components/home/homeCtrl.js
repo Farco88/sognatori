@@ -7,7 +7,7 @@ app.controller("homeCtrl", function($scope, $location, $rootScope, $http, $inter
 	$scope.cultura;
 
 	// Faccio andare avanti le immagini dello slider ogni tot secondi
-	$interval( function(){ $scope.avanti(); }, 7000);
+	$rootScope.intervalPromise = $interval( function(){ $scope.avanti(); }, 3000);
 
 	$scope.getNews = function(){
 		getNews("Intervista")
@@ -29,18 +29,21 @@ app.controller("homeCtrl", function($scope, $location, $rootScope, $http, $inter
 	$scope.sfogliaIntervista = function(articolo){
         $rootScope.articolo = articolo;
         $rootScope.categoria = "Intervista";
+        $interval.cancel($rootScope.intervalPromise);
         $location.path("/articoli/"+articolo._id+"/"+articolo.title);
 	} // fine functon()
 
 	$scope.sfogliaLibro = function(articolo){
         $rootScope.articolo = articolo;
         $rootScope.categoria = "Libro";
+        $interval.cancel($rootScope.intervalPromise);
         $location.path("/articoli/"+articolo._id+"/"+articolo.title);
 	} // fine functon()
 
 	$scope.sfogliaCultura = function(articolo){
         $rootScope.articolo = articolo;
         $rootScope.categoria = "Cultura";
+        $interval.cancel($rootScope.intervalPromise);
         $location.path("/articoli/"+articolo._id+"/"+articolo.title);
 	} // fine functon()
 

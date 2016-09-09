@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">  
 
 </head>
-<body id="homeLabel" data-spy="scroll" data-target=".navbar" data-offset="50">
+<body>
 
 	<menu-mio></menu-mio>
 
@@ -38,26 +38,29 @@
 
 		<!-- CHI SIAMO -->
 		<div class="container" id="chiSiamoLabel">
-			<h3 class="text-center">ABOUT US</h3><br>
-			<p>Sognatori Erranti nasce come gruppo di aggregazione tra artisti di diversa estrazione. Vuole essere uno spazio dedicato alle iniziative di chi vuole dare libero sfogo alla fantasia, con al centro del progetto una sola e grande idea, quella di dare forma e sostanza ai sogni, attraverso la massima valorizzazione dell'ispirazione individuale.Lo spirito di Sognatori Erranti si manifesta attraverso i suoi creatori:
-				<b><i>Silvia Maira</i></b>, autrice orientata al romance impegnato e appassionata di musica in tutte le sue forme
-				<b><i>Daniela Ruggero</i></b>, autrice dark fantasy, dark romance nonché titolare del blog omonimo
-				<b><i>Sara Ferrantini</i></b>, laureata presso la facoltà di Scienze della Moda e del Costume, esperta di moda, creatrice di gioielli, blogger (Fashion Drops) e grafica.
-				<b><i>Valerio Sericano</i></b>, autore di fantasy, storici e narrativa generale
-				ai quali si sono di recente aggiunte due giovani new entry:
-				<b><i>Isabella Cavallari</i></b>, grafica e articolista, curatrice del blog Bosco dei sogni fantastici 
-				<b><i>Claudia d'Amico</i></b>, diplomata in studi umanistici e prossima studentessa in Comunicazione.
-			</p>
+			<div class="row">
+				<h3 class="text-center">ABOUT US</h3><br>
+				<p>Sognatori Erranti nasce come gruppo di aggregazione tra artisti di diversa estrazione. Vuole essere uno spazio dedicato alle iniziative di chi vuole dare libero sfogo alla fantasia, con al centro del progetto una sola e grande idea, quella di dare forma e sostanza ai sogni, attraverso la massima valorizzazione dell'ispirazione individuale.Lo spirito di Sognatori Erranti si manifesta attraverso i suoi creatori:
+					<b><i>Silvia Maira</i></b>, autrice orientata al romance impegnato e appassionata di musica in tutte le sue forme
+					<b><i>Daniela Ruggero</i></b>, autrice dark fantasy, dark romance nonché titolare del blog omonimo
+					<b><i>Sara Ferrantini</i></b>, laureata presso la facoltà di Scienze della Moda e del Costume, esperta di moda, creatrice di gioielli, blogger (Fashion Drops) e grafica.
+					<b><i>Valerio Sericano</i></b>, autore di fantasy, storici e narrativa generale
+					ai quali si sono di recente aggiunte due giovani new entry:
+					<b><i>Isabella Cavallari</i></b>, grafica e articolista, curatrice del blog Bosco dei sogni fantastici 
+					<b><i>Claudia d'Amico</i></b>, diplomata in studi umanistici e prossima studentessa in Comunicazione.
+				</p>		
+			</div>
+	
 			<br>  
 			<!--photo staff-->
 			<div class="row">
 				<div class="text-center">
-					<img src="img/foto1a.jpg" class="img-circle" alt="Cinque Terre" width="120" height="120">&nbsp 
-					<img src="img/daniela2.jpg" class="img-circle" alt="Cinque Terre" width="120" height="120">&nbsp  
-					<img src="img/io4.jpg" class="img-circle" alt="Cinque Terre" width="120" height="120">&nbsp  
-					<img src="img/valerio.jpg" class="img-circle" alt="Cinque Terre" width="120" height="120">&nbsp  
-					<!-- <img src="img/foto3.jpg" class="img-circle" alt="Cinque Terre" width="120" height="120">&nbsp  -->
-					<img src="img/claudia2.jpg" class="img-circle" alt="Cinque Terre" width="120" height="120">			
+					<img src="img/silviaMaira.jpg" class="img-circle" alt="Silvia Maira" width="120" height="120">&nbsp 
+					<img src="img/danielaRuggero.jpg" class="img-circle" alt="Daniela Ruggero" width="120" height="120">&nbsp  
+					<img src="img/saraFerrantini.jpg" class="img-circle" alt="Sara Ferrantini" width="120" height="120">&nbsp  
+					<img src="img/valerioSericano.jpg" class="img-circle" alt="Valerio Sericano" width="120" height="120">&nbsp  
+					<img src="img/isabellaCavallari.jpg" class="img-circle" alt="Isabella Cavallari" width="120" height="120">&nbsp 
+					<img src="img/claudiaDAmico.jpg" class="img-circle" alt="Claudia d'Amico" width="120" height="120">			
 				</div>
 			</div>
 		</div>
@@ -70,9 +73,9 @@
 			<h3 class="text-center">NEWS</h3>
 			<p class="text-center">"Sogna come quando eri bambino"</p>
 		   
-			<div class="row text-center">
+			<div class="row text-center" >
 				<div class="col-xs-12 col-md-4">
-					<div class="thumbnail">
+					<div class="thumbnail" >
 						<div class="crop">
 							<img ng-src="{{intervista.pathImmagine}}" alt="">
 						</div>				
@@ -80,8 +83,8 @@
 						<button class="btn1" ng-click="sfogliaIntervista(intervista)">SFOGLIA</button>
 					</div>
 				</div>
-				<div class="col-xs-12 col-md-4">
-					<div class="thumbnail">
+				<div class="col-xs-12 col-md-4" >
+					<div class="thumbnail" >
 						<div class="crop">
 							<img ng-src="{{libro.pathImmagine}}" alt="">
 						</div>				
@@ -90,7 +93,7 @@
 					</div>
 				</div>
 				<div class="col-xs-12 col-md-4">
-					<div class="thumbnail">
+					<div class="thumbnail" >
 						<div class="crop">
 							<img ng-src="{{cultura.pathImmagine}}" alt="">
 						</div>								

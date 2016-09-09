@@ -32,12 +32,7 @@ app.controller("footerCtrl", function($scope, $sce, $location, $rootScope, $http
 				$scope.showError = response.showError;
 				// Se non c'è errore mostra Logout e recupera l'oggetto amministratore
 				if(!$scope.showError){
-					$rootScope.amm = response.user;
-					// Leggo le immagini caricate
-			    	leggiImgCaricate()
-			    		.success(function(response){
-							$scope.listaImmagini = response;
-			    		});					
+					$rootScope.amm = response.user;			
 				}					
 			});
 
@@ -54,6 +49,11 @@ app.controller("footerCtrl", function($scope, $sce, $location, $rootScope, $http
 		$scope.title = "";		
 		$scope.article = "";
 		$scope.genre = $scope.generi[0];	
+		// Leggo le immagini caricate
+    	leggiImgCaricate()
+    		.success(function(response){
+				$scope.listaImmagini = response;
+    		});				
 		$('#articolo-modal').modal('show');
 	} // fine function apriNuovoArticolo()
 
@@ -98,9 +98,15 @@ app.controller("footerCtrl", function($scope, $sce, $location, $rootScope, $http
     $scope.inserisciImmagine = function(file, errFiles){
         $scope.f = file;
         $scope.errFile = errFiles && errFiles[0];    	
-    	insertImmagine($scope.f, Upload, $timeout)
+    	inserisciImmagine($scope.f, Upload, $timeout)
     		.success(function(response){
-    			console.log("Immagine inserita");
+    			if(response){
+					// Leggo le immagini caricate
+			    	leggiImgCaricate()
+			    		.success(function(response){
+							$scope.listaImmagini = response;
+			    		});		
+    			}
     		});
     } // fine function()
 
@@ -143,6 +149,11 @@ app.controller("footerCtrl", function($scope, $sce, $location, $rootScope, $http
 				$scope.idArt = response._id;
 				// Cambio il titolo dell'azione in Modifica
 				$scope.azioneArticolo = "Modifica Articolo";
+				// Leggo le immagini caricate
+		    	leggiImgCaricate()
+		    		.success(function(response){
+						$scope.listaImmagini = response;
+		    		});						
 				// Apro il modal
 				$('#articolo-modal').modal('show');	
 			});     	
