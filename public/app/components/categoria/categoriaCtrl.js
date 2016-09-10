@@ -31,7 +31,11 @@ app.controller("categoriaCtrl", function($scope, $location, $rootScope, $http, C
         $scope.sottocategoria = sottocategoria;
         $scope.articoli = [];
         $scope.articInizio = 0; 
-        $scope.getArticoli();
+        getArticoli($rootScope.categoria, $scope.articInizio, $scope.articFine, $scope.sottocategoria)
+            .success(function(response){
+                $scope.articoli = $scope.articoli.concat(response.obj); 
+                $scope.lunghezzaArticTot = response.lunghezza;                 
+            });
         $('html, body').animate({
             scrollTop: $("#categoriaLabel").offset().top
         }, 500);           

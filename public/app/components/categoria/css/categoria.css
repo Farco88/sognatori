@@ -30,11 +30,9 @@
   padding: 0.9% 0;
 }
 
-#citazione{
+.citazione{
   text-align: center;
-  color: Black;
-  font-family: Bell MT;
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .commenti{  

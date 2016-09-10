@@ -1,6 +1,6 @@
 
 
-app.controller("footerCtrl", function($scope, $sce, $location, $rootScope, $http, Upload, $timeout, Amministratori, Categoria, Email){
+app.controller("footerCtrl", function($scope, $sce, $location, $rootScope, $http, Upload, $timeout, Amministratori, Categoria, Email, Articolo){
 
 	// Definizione variabili
 	$rootScope.logAmmName = "Accedi";	
@@ -164,13 +164,22 @@ app.controller("footerCtrl", function($scope, $sce, $location, $rootScope, $http
 			$scope.idArt = id;
 	};
 
+	$scope.apriConfermaRimozioneCommento = function(id){
+		$('#confermaRimozioneCommento-modal').modal('show');
+		$scope.idCommento = id;
+	}	
+
 	$scope.annullaRimozione = function(){
 		$('#confermaRimozione-modal').modal('hide');
 	};
 
+	$scope.annullaRimozioneCommento = function(){
+		$('#confermaRimozioneCommento-modal').modal('hide');
+	};
+
 
 	// Rimuovo un articolo per id
-    $scope.removeArticolo = function(){
+    $scope.removeArticolo = function(){    	;
     	$('#confermaRimozione-modal').modal('hide');
     	removeArticolo($scope.idArt)
 			.success(function(response){
@@ -181,6 +190,42 @@ app.controller("footerCtrl", function($scope, $sce, $location, $rootScope, $http
 					});
 			}); 
     };
+
+
+	// Rimuovo un commento per id
+    $scope.removeCommento = function(){
+    	$('#confermaRimozioneCommento-modal').modal('hide');
+    	removeCommento($rootScope.articolo._id, $scope.idCommento)
+			.success(function(response){
+				if(response){
+					$rootScope.articolo.commenti = response.commenti;
+					getCommenti($rootScope.articolo.commenti)
+						.success(function(response){
+							for(var i=0;i<response.length;++i){
+								$rootScope.articolo.commenti[i]["username"] = response[i]["username"];	
+								if(response[i]["pathImmagine"] == undefined){
+									$rootScope.articolo.commenti[i]["pathImmagine"] = "img/profilo.png";	
+								}else{
+									$rootScope.articolo.commenti[i]["pathImmagine"] = response[i]["pathImmagine"];		
+								}
+								
+							} // fine for()
+							// Ordino per l'ultima data
+							$rootScope.articolo.commenti.sort(function(a, b) {
+							  if (a.data < b.data) {
+							    return 1;
+							  }
+							  if (a.data > b.data) {
+							    return -1;
+							  }
+							  // names must be equal
+							  return 0;
+							});							
+						});
+				}		
+			}); 
+    };
+
 
     // Invia Email
     $scope.inviaEmail = function(){

@@ -4,10 +4,10 @@
 
 
   /* ------------------------ STILE DEI TITOLI */
-  h3, h4 {
-      letter-spacing: 10px;      
-      font-size: 20px;
-      color: #111;
+  h1, h2, h3, h4 {
+    font-family: 'Cormorant Infant', serif;     
+    font-size: 20px;
+    color: #111;
   }
   
   /* ------------------------ STILE DEI CONTAINER */
@@ -17,7 +17,6 @@
    
   /* ------------------------ NAVBAR */
   .navbar {	 
-      font-family: Montserrat;
       margin-bottom: 0;
       background-color:white;
       border: 0;
@@ -29,25 +28,26 @@
 
   .navbar-default .navbar-nav>li>a{ 
       color: #d5d5d5 ;
+      font-family: 'Cormorant Infant', serif; 
+      font-size: 15px;
   }
   .navbar-default .navbar-nav>li>a:hover {
       color: #fff ;
       background-color: #555;
+      font-size: 17px;
   }
 
   /* COLORE TITOLO */
   .navbar-default .navbar-brand {
 	  color: #EA57CB;
-	  @font-face: Blacksword;
-	  text-transform: ;
-	  font-size: 40px;
+	  font-family: 'Alex Brush', serif;
+	  font-size: 50px;
   }
   
   .navbar-default .navbar-brand span {
 	  color: #951B81;
-	  font-family: Blacksword;
-	  text-transform: ;
-	  font-size: 40px;
+	  font-family: 'Alex Brush', serif;
+	  font-size: 50px;
   }
 
 	/* ------------------------ CAROUSEL */

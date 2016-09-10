@@ -312,10 +312,12 @@
 				</div>
 				
 				<div ng-show="mostrareCommenti" class="row" class="pull-left" ng-repeat="commento in articolo.commenti">
-					<div class="col-xs-2">
-						<img ng-src="{{commento.pathImmagine}}" style="height: 50px"> 	
+					<!-- <button ng-click="apriConfermaRimozione(commento._id)" ng-if="amm.username !== undefined" class="btn btn-link glyphicon glyphicon-remove pull-right"></button> -->
+					<button ng-click="apriConfermaRimozioneCommento(commento._id)" ng-if="amm.username !== undefined" class="btn btn-link glyphicon glyphicon-remove pull-right"></button>
+					<div class="col-xs-3">
+						<img ng-src="{{commento.pathImmagine}}" class="img-responsive" style="max-height:50px;"> 	
 					</div>
-					<div class="col-xs-10">
+					<div class="col-xs-9">
 						<strong class="pull-left">{{commento.username}}</strong> 
 						<small class="pull-right text-muted">{{commento.data  | date:'dd MMM yyyy HH:mm'}}</small><br>
 						<p class="pull-left">{{commento.testo}}</p>	

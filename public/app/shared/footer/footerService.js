@@ -124,6 +124,14 @@ app.service("Amministratori", ["$http", function($http){
 			"_id": id
 		};
 		return $http.post("/removeArticolo", info);
+	};
+
+	removeCommento = function(idArt, idCommento){
+		info = {
+			"idArt": idArt,
+			"idCommento": idCommento
+		};
+		return $http.post("/removeCommento", info);
 	};		
 	
 

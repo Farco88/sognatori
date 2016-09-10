@@ -31,7 +31,7 @@
 					<!-- remove -->
 					<button ng-click="apriConfermaRimozione(articolo._id)" ng-if="amm.username !== undefined" class="btn btn-link glyphicon glyphicon-remove pull-right"></button>
 
-					<h3> {{articolo.title}} </h3>
+					<h3 style="font-size: 30px;"> {{articolo.title}} </h3>
 					<small class="pull-left text-muted">{{articolo.datetime  | date:'dd MMM yyyy HH:mm'}}</small>
 					<br><br>
 				 	<p><span ng-bind-html='getArticoloPulito(articolo.article, true)'></span>...</p>

@@ -499,7 +499,7 @@ router.post("/inserisciCommento", function(req, res){
 		    if(err){
 		    	console.log(err);	
 		    }else{
-		    	res.json("Commento inserito con successo!");
+		    	res.json(doc);
 		    }
 	});
 
@@ -591,5 +591,27 @@ router.post("/removeArticolo", function(req, res){
 
 
 });	
+
+// API che rimuove un commento da un articolo
+router.post("/removeCommento", function(req, res){
+
+	// Tiro fuori le info
+	info = req.body;
+
+	Articoli.findOneAndUpdate({"_id": info.idArt}, {
+			$pull : {
+			    "commenti" : {"_id": info.idCommento}
+			}
+		}, function(err, doc){
+		    if(err){
+		    	console.log(err);	
+		    }else{
+		    	res.json(doc);
+		    }
+	});
+
+
+});
+
 
 module.exports = router;

@@ -150,14 +150,13 @@ app.controller("articoloCtrl", function($scope, $location, $rootScope, $http, Ar
 		if ($scope.commentaForm.$valid) {
 			inserisciCommento($rootScope.articolo._id, $rootScope.userLogged.email, $scope.commento)
 				.success(function(response){
-					if(response){
-						alert("Commento inserito");
-					}
+					alert("Grazie per aver commentato")
+					$location.path("/home");				
 				});		
 		}else {
 			$scope.commentaForm.submitted=true;
 		}
-		} // fine function()
+	} // fine function()
 
 	$scope.apriModalRegistrazione = function(){		
 		$('#registrazione-modal').modal('show');
